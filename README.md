@@ -9,7 +9,7 @@ _Installing basic packages and libraries in Linux for people who are newly insta
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 # 📦Packages and libraries that are installed _Ubuntu_
 ```json
-"author": "GodFather",
+"author": "CAgent_47",
 "Packages": [
        "python3-full",
         "curl",
