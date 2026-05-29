@@ -1,6 +1,6 @@
 {
     "project": "Linux Package installer",
-    "author": "GodFather",
+    "author": "CAgent_47",
     "Packages": [
         "python3-full",
         "curl",
