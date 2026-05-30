@@ -11,7 +11,7 @@ _Installing basic packages and libraries in Linux for people who are newly insta
 ```json
 "author": "CAgent_47",
 "Packages": [
-       "python3-full",
+       "python3",
         "curl",
         "git",
        "libevent-2.1-7",
@@ -22,8 +22,6 @@ _Installing basic packages and libraries in Linux for people who are newly insta
         "ipython3",
         "libnotify-bin",
         "unrar",
-        "cowsay",
-        "nodejs"
 ]
 ```
 ---
