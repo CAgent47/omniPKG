@@ -1,5 +1,5 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-# 🚀Installing-Linux-Ubuntu-packages🛠️ 
+# 🚀Installing-Linux-Debian_Based-packages🛠️ 
 
 _Installing basic packages and libraries in Linux for people who are newly installing or changing the operating system. Linux based on Debian Or Ubuntu._
 
@@ -7,7 +7,7 @@ _Installing basic packages and libraries in Linux for people who are newly insta
 
 ---
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-# 📦Packages and libraries that are installed _Ubuntu_
+# 📦Packages and libraries that are installed
 ```json
 "author": "CAgent_47",
 "Packages": [
