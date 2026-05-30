@@ -13,7 +13,6 @@
         "ipython3",
         "libnotify-bin",
 	    "unrar",
-		"nodejs",
         "docker.io",
 		"default-jdk",
 		"wget"
