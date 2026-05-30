@@ -34,7 +34,10 @@ fi
 read -p "The package installation was successful. Do you want to restart? (y/n): " restart
 if [[ "$restart" == "y" ]] || [[ "$restart" == "Y" ]]; then 
     echo "5 seconds until restart to cancel (CTRL + C)! "
-    sleep 5
+    for reboot_Sys in {5..1}; do
+        echo "$reboot_Sys"
+        sleep 1
+    done
     reboot || sudo systemctl reboot
 else
     echo "Restart later and let it settle."
