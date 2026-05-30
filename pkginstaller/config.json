@@ -2,7 +2,7 @@
     "project": "Linux Package installer",
     "author": "CAgent_47",
     "Packages": [
-        "python3-full",
+        "python3",
         "curl",
         "git",
         "libevent-2.1-7",
@@ -15,6 +15,7 @@
 	    "unrar",
 		"nodejs",
         "docker.io",
-		"default-jdk"
+		"default-jdk",
+		"wget"
     ]
 }
