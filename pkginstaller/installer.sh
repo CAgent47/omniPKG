@@ -19,9 +19,11 @@ Packages=($(jq -r '.Packages[]' "$pack"))
 echo "Installing packages Please Wite......."
 # Read Json And Install PKG
 for pkg in "${Packages[@]}"; do
-    echo -e "\e[96mInstalling $pkg......\e[0m"
-    sleep 2
-    sudo apt install -y "$pkg"
+    if ! command -v $pkg &> /dev/null; then
+        echo -e "\e[96mInstalling $pkg......\e[0m"
+        sleep 2
+        sudo apt install -y "$pkg"
+    fi
 done
 
 if ! command fastfetch &> /dev/null; then
