@@ -30,19 +30,15 @@ if ! command fastfetch &> /dev/null; then
     sudo apt install fastfetch -y
 fi
 
-clear
-
 # Restart System
 read -p "The package installation was successful. Do you want to restart? (y/n): " restart
 if [[ "$restart" == "y" ]] || [[ "$restart" == "Y" ]]; then 
     echo "5 seconds until restart to cancel (CTRL + C)! "
     sleep 5
-    reboot
+    reboot || sudo systemctl reboot
 else
-    clear
-    echo "Restart later and let it settle. XD"
-    echo "Good Lock!<3"
-    fastfetch
+    echo "Restart later and let it settle."
+    echo "Created By CAgent_47"
 fi
 
 # Created By CAgent_47
