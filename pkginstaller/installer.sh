@@ -19,16 +19,12 @@ Packages=($(jq -r '.Packages[]' "$pack"))
 echo "Installing packages Please Wite......."
 # Read Json And Install PKG
 for pkg in "${Packages[@]}"; do
-    if ! command -v $pkg &> /dev/null; then
+    if ! dpkg -s "$pkg" >/dev/null 2>&1; then
         echo -e "\e[96mInstalling $pkg......\e[0m"
         sleep 2
         sudo apt install -y "$pkg"
     fi
 done
-
-if ! command fastfetch &> /dev/null; then
-    sudo apt install fastfetch -y
-fi
 
 # Restart System
 read -p "The package installation was successful. Do you want to restart? (y/n): " restart
