@@ -13,6 +13,7 @@
         "ipython3",
         "libnotify-bin",
 	    "unrar",
-		"wget"
+		"wget",
+		"python3-pip"
     ]
 }
