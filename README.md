@@ -21,10 +21,11 @@ _Installing basic packages and libraries in Linux for people who are newly insta
         "dos2unix",
         "ipython3",
         "libnotify-bin",
-	 "unrar",
+	     "unrar",
         "docker.io",
-	 "default-jdk",
-	 "wget"
+	     "default-jdk",
+	     "wget",
+	     "python3-pip"
     ]
 ```
 ---
