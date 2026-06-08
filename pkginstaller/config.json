@@ -2,7 +2,7 @@
     "project": "Linux Package installer",
     "author": "CAgent_47",
     "Packages": [
-        "python3",
+        "python3-full",
         "curl",
         "git",
         "libevent-2.1-7",
