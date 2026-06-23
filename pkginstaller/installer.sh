@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 # Install Default Packages
 sudo apt update && sudo apt full-upgrade -y
 
@@ -12,12 +10,12 @@ if ! command -v jq  &> /dev/null; then # if not exists..
 fi
 
 
-# Variables
+# json file connect and read packages list for install
 pack="config.json"
 Packages=($(jq -r '.Packages[]' "$pack"))
 
 echo "Installing packages Please Wite......."
-# Read Json And Install PKG
+# Use json connection and install packages in list
 for pkg in "${Packages[@]}"; do
     if ! dpkg -s "$pkg" >/dev/null 2>&1; then
         echo -e "\e[96mInstalling $pkg......\e[0m"
@@ -26,7 +24,7 @@ for pkg in "${Packages[@]}"; do
     fi
 done
 
-# Restart System
+# Restart System Request
 read -p "The package installation was successful. Do you want to restart? (y/n): " restart
 if [[ "$restart" == "y" ]] || [[ "$restart" == "Y" ]]; then 
     echo "5 seconds until restart to cancel (CTRL + C)! "
@@ -34,7 +32,9 @@ if [[ "$restart" == "y" ]] || [[ "$restart" == "Y" ]]; then
         echo "$reboot_Sys"
         sleep 1
     done
-    reboot || sudo systemctl reboot
+    # If Error for execution `sudo systemctl reboot` use reboot command
+    # reboot
+    sudo systemctl reboot
 else
     echo "Restart later and let it settle."
     echo "Created By CAgent_47"
