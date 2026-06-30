@@ -13,21 +13,19 @@ _Installing basic packages and libraries in Linux for people who are newly insta
 ```json
 "author": "CAgent_47",
 "Packages": [
-        "python3",
+        "python3-full",
         "curl",
         "git",
-        "libevent-2.1-7",
         "ssh",
-        "libssl3",
-        "libasound2t64",
         "dos2unix",
         "ipython3",
         "libnotify-bin",
-	     "unrar",
-        "docker.io",
-	     "default-jdk",
-	     "wget",
-	     "python3-pip"
+	    "unrar",
+		"wget",
+		"python3-pip",
+		"lolcat",
+		"fortune",
+		"cowsay"
     ]
 ```
 ---
