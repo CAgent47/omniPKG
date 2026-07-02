@@ -32,7 +32,11 @@ _Installing basic packages and libraries in Linux for people who are newly insta
 
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
 # 📂How To Run?
-1. Downloads File [Installer-Download](https://github.com/CAgent47/Installing-Linux-Ubuntu-packages/archive/refs/heads/main.zip)
+1. Downloads File
+
+```bash
+git clone https://github.com/CAgent47/Installing-Linux-Ubuntu-packages/archive/refs/heads/main.zip
+```
    
 🔧 2.Give permission:
 ```bash
