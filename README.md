@@ -4,10 +4,6 @@
 _Installing basic packages and libraries in Linux for people who are newly installing or changing the operating system. Linux based on Debian Or Ubuntu._
 
 ---
-
-# Upgrading Progect To Ultimate Auto Starter For GNU/Linux.....
-
----
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 # 📦Packages and libraries that are installed
 ```json
