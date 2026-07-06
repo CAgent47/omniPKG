@@ -59,6 +59,7 @@ Sparky Linux
 antiX
 Porrot OS
 ```
+**More distributions will be supported in the next update**
 ---
 
 ![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
