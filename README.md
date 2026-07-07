@@ -1,11 +1,16 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-# 🚀Installing-Linux-Debian_Based-packages🛠️ 
+
+# 🚀Installing-Linux-Debian_Based-packages🛠️
 
 _Installing basic packages and libraries in Linux for people who are newly installing or changing the operating system. Linux based on Debian Or Ubuntu._
 
+# Update version (V1.2) Comming Soon
+
 ---
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+
 # 📦Packages and libraries that are installed
+
 ```json
 "author": "CAgent_47",
 "Packages": [
@@ -16,36 +21,42 @@ _Installing basic packages and libraries in Linux for people who are newly insta
         "dos2unix",
         "ipython3",
         "libnotify-bin",
-	    "unrar",
-		"wget",
-		"python3-pip",
-		"lolcat",
-		"fortune",
-		"cowsay"
+     "unrar",
+  "wget",
+  "python3-pip",
+  "lolcat",
+  "fortune",
+  "cowsay"
     ]
 ```
+
 ---
 
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+
 # 📂How To Run?
+
 1. Downloads File
 
 ```bash
 git clone https://github.com/CAgent47/Installing-Linux-Ubuntu-packages/archive/refs/heads/main.zip
 ```
-   
+
 🔧 2.Give permission:
+
 ```bash
         chmod +x installer.sh
 ```
 
 ▶️ 3.Run the script:
+
 ```bash
         bash installer.sh
 ```
 
 ---
-# Supported operating systems:
+
+# Supported operating systems
 
 ```markdown
 kali
@@ -59,16 +70,22 @@ Sparky Linux
 antiX
 Porrot OS
 ```
+
 **More distributions will be supported in the next update**
 ---
 
 ![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
+
 # 🔧 Is it possible to edit the packages that are installed?
+
 Yes, you can specify which packages to install.
+
 - By going to the json file in the presentation ("Packages") you can rename the packages or delete them.
+
 ---
 
 ![Tux](https://img.shields.io/badge/Tux-000000?style=for-the-badge&logo=linux&logoColor=white)
+
 # 📷 Example Output
 
 1️⃣ After installing the packages:
@@ -109,7 +126,7 @@ Yes, you can specify which packages to install.
 
 # -📜MTA Scripter • Linux Learner🐧 • Python Learner • SQL • Bash Scripter 🇺🇸🔥
 
-**Topics:** 
+**Topics:**
 [#bash](https://github.com/topics/bash) •
 [#linux](https://github.com/topics/linux) •
 [#automation](https://github.com/topics/automation) •
