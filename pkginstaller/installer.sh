@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eou pipefail
-command -c apt >/dev/null || {
+command -v apt >/dev/null || {
     echo "apt not found"
     exit 1
 }
