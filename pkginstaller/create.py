@@ -37,5 +37,3 @@ def createJsonFile(file, list):
 
 if not os.path.exists(pkg_configuration):
     createJsonFile(pkg_configuration, pkg_List)
-else:
-    print("exists")
