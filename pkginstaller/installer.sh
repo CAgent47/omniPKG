@@ -1,43 +1,42 @@
 #!/bin/bash
-# Install Default Packages
-sudo apt update && sudo apt full-upgrade -y
+conf=${1:-config.json}
+sudo apt update
+sudo apt full-upgrade -y
 
-# jq Exists?
-if ! command -v jq  &> /dev/null; then # if not exists..
-    echo "Installing Jq For Read Json..."
-    sleep 2
+if ! command -v jq &> /dev/null; then
     sudo apt install -y jq
 fi
 
-
-# json file connect and read packages list for install
-pack="config.json"
-Packages=($(jq -r '.Packages[]' "$pack"))
-
-echo "Installing packages Please Wite......."
-# Use json connection and install packages in list
-for pkg in "${Packages[@]}"; do
-    if ! dpkg -s "$pkg" >/dev/null 2>&1; then
-        echo -e "\e[96mInstalling $pkg......\e[0m"
-        sleep 2
-        sudo apt install -y "$pkg"
+applyPKG() {
+    local pkg="$1"
+    if dpkg -s "$pkg" &> /dev/null; then
+        echo "[ - ] '$pkg' Installed in your System"
+    else
+        echo "[ + ] Installing '$pkg' ..."
+        if ! sudo apt install -y "$pkg"; then
+            echo "[ERROR]: failed to install $pkg"
+            exit 1
+        fi
     fi
-done
+}
 
-# Restart System Request
-read -p "The package installation was successful. Do you want to restart? (y/n): " restart
-if [[ "$restart" == "y" ]] || [[ "$restart" == "Y" ]]; then 
-    echo "5 seconds until restart to cancel (CTRL + C)! "
-    for reboot_Sys in {5..1}; do
-        echo "$reboot_Sys"
-        sleep 1
-    done
-    # If Error for execution `sudo systemctl reboot` use reboot command
-    # reboot
-    sudo systemctl reboot
-else
-    echo "Restart later and let it settle."
-    echo "Created By CAgent_47"
+if [[ ! -f "$conf" ]]; then
+
+    if [[ ! -f "create.py" ]]; then
+        echo "[ Python Error ]: Conf Create File Not Exists Please Goto https://github.com/CAgent47/GraphicCardDriver-installer-for-Debian13 and Download '*.py' file Please"
+        exit 1
+    fi
+    
+    echo "[FiX]: File $conf Not Found Creating File." >&2
+    if ! command -v python3 &> /dev/null; then
+        sudo apt install -y python3-full
+    fi
+    python3 create.py
 fi
 
+mapfile -t packages < <(jq -r '.Packages[]' "$conf")
+
+for basic in "${packages[@]}"; do
+    applyPKG "$basic"
+done
 # Created By CAgent_47
