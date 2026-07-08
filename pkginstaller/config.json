@@ -1,11 +1,9 @@
 {
     "project": "Linux Package installer (Debian Based Distro)",
     "author": "CAgent_47",
-	"GitHub": "https://github.com/CAgent47",
-	"LinkedIn": "https://www.linkedin.com/in/mohammad-shaygan-2a96a8387",
-	"X": "https://x.com/CAgent_47",
-
-
+    "GitHub": "https://github.com/CAgent47",
+    "LinkedIn": "https://www.linkedin.com/in/mohammad-shaygan-2a96a8387",
+    "X": "https://x.com/CAgent_47",
     "Packages": [
         "python3-full",
         "curl",
@@ -14,11 +12,12 @@
         "dos2unix",
         "ipython3",
         "libnotify-bin",
-	    "unrar",
-		"wget",
-		"python3-pip",
-		"lolcat",
-		"fortune",
-		"cowsay"
+        "unrar",
+        "wget",
+        "python3-pip",
+        "lolcat",
+        "fortune",
+        "cowsay",
+        "btop"
     ]
 }
