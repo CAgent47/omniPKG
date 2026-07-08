@@ -5,13 +5,13 @@ command -c apt >/dev/null || {
     exit 1
 }
 conf=${1:-config.json}
-if jq -e '.update' "$conf" > /dev/null; then
-    sudo apt update
-    sudo apt full-upgrade -y
-fi
 
 if ! command -v jq &> /dev/null; then
     sudo apt install -y jq
+fi
+if jq -e '.update' "$conf" > /dev/null; then
+    sudo apt update
+    sudo apt full-upgrade -y
 fi
 
 applyPKG() {
