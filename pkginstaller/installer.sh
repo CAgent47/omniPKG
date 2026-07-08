@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eou pipefail
+set -euo pipefail
 command -v apt >/dev/null || {
     echo "apt not found"
     exit 1
@@ -9,10 +9,7 @@ conf=${1:-config.json}
 if ! command -v jq &> /dev/null; then
     sudo apt install -y jq
 fi
-if jq -e '.update' "$conf" > /dev/null; then
-    sudo apt update
-    sudo apt full-upgrade -y
-fi
+
 
 applyPKG() {
     local pkg="$1"
@@ -39,6 +36,11 @@ if [[ ! -f "$conf" ]]; then
         sudo apt install -y python3-full
     fi
     python3 create.py
+fi
+
+if jq -e '.update' "$conf" > /dev/null; then
+    sudo apt update
+    sudo apt full-upgrade -y
 fi
 
 mapfile -t packages < <(jq -r '.Packages[]' "$conf")
