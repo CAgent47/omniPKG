@@ -1,7 +1,14 @@
 #!/bin/bash
+set -eou pipefail
+command -c apt >/dev/null || {
+    echo "apt not found"
+    exit 1
+}
 conf=${1:-config.json}
-sudo apt update
-sudo apt full-upgrade -y
+if jq -e '.update' "$conf" > /dev/null; then
+    sudo apt update
+    sudo apt full-upgrade -y
+fi
 
 if ! command -v jq &> /dev/null; then
     sudo apt install -y jq
