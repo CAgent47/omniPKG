@@ -4,7 +4,13 @@
 
 _Installing basic packages and libraries in Linux for people who are newly installing or changing the operating system. Linux based on Debian Or Ubuntu._
 
-# Update version (V1.2) Comming Soon
+# Update version (V1.2):
+- optimized script
+- python script for create file if not exists
+- added secure installation
+- added update key with boolian variable for beter setting
+- clean code
+- secured script for just use (apt)
 
 ---
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
