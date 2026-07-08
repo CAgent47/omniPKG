@@ -19,5 +19,6 @@
         "fortune",
         "cowsay",
         "btop"
-    ]
+    ],
+    "update": true
 }
