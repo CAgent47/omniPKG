@@ -1,5 +1,33 @@
-import platform
+import shutil
 
-local_os = platform.freedesktop_os_release()
+def setPackageManager(manager):
+    if shutil.which(manager):
+        return manager
 
-main_Sys = local_os["ID"]
+pkg_Managers = (
+    "apt",
+    "dnf",
+    "pacman",
+    "yum",
+    "zypper",
+    "apk",
+    "xbps-install",
+    "eopkg",
+    "emerge",
+    "nix",
+    "guix",
+    "pkg"
+)
+
+user_package_Manager = None
+
+def usePkgManager(managers):
+    global user_package_Manager
+    for pm in managers:
+        if setPackageManager(pm):
+            user_package_Manager = pm
+            break
+
+usePkgManager(pkg_Managers)
+system_Package_Manager = user_package_Manager
+print(system_Package_Manager)
