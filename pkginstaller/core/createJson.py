@@ -37,3 +37,110 @@ def createJsonFile(file, list):
 
 if not os.path.exists(pkg_configuration):
     createJsonFile(pkg_configuration, pkg_List)
+
+
+pkg_managers_json = {
+    "apt": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "dnf":{
+        "update": "sudo dnf check-update && sudo dnf upgrade -y",
+        "install": "sudo dnf install -y"
+    },
+    "pacman": {
+        "update": "sudo pacman -Syu --noconfirm",
+        "install": "sudo pacman -S --noconfirm"
+    },
+    "yum":{
+        "update": "sudo yum check-update && sudo yum update -y",
+        "install": "sudo yum install -y"
+    },
+    "zypper": {
+        "update": "sudo zypper refresh && sudo zypper update -y",
+        "install": "sudo zypper install -y"
+    },
+    "apk": {
+        "update": "sudo apk update && sudo apk upgrade",
+        "install": "sudo apk add"
+    },
+    "xbps-install":{
+        "update": "sudo xbps-install -S && sudo xbps-install -Su",
+        "install": "sudo xbps-install -y"
+    },
+    "eopkg": {
+        "update": "sudo eopkg update-repo && sudo eopkg upgrade -y",
+        "install": "sudo eopkg install -y"
+    },
+    "emerge": {
+        "update": "sudo emerge --sync && sudo emerge -avuDN @world",
+        "install": "sudo emerge"
+    },
+    "nix": {
+        "update": "nix-channel --update && nix-env -u",
+        "install": "nix-env -iA nixpkgs."
+    },
+    "guix": {
+        "update": "guix pull && guix package -u",
+        "install": "guix install"
+    },
+    "pkg": {
+        "update": "sudo pkg update && sudo pkg upgrade -y",
+        "install": "sudo pkg install -y"
+    },
+    "brew": {
+        "update": "brew update && brew upgrade",
+        "install": "brew install"
+    },
+    "flatpak": {
+        "update": "flatpak update -y",
+        "install": "flatpak install -y"
+    },
+    "snap": {
+        "update": "sudo snap refresh",
+        "install": "sudo snap install"
+    },
+    "winget": {
+        "update": "winget upgrade --all",
+        "install": "winget install"
+    },
+    "choco": {
+        "update": "choco upgrade all -y",
+        "install": "choco install -y"
+    },
+    "scoop": {
+        "update": "scoop update *",
+        "install": "scoop install"
+    },
+    "pkgin": {
+        "update": "sudo pkgin update && sudo pkgin upgrade",
+        "install": "sudo pkgin install"
+    },
+    "opkg": {
+        "update": "opkg update && opkg upgrade",
+        "install": "opkg install"
+    },
+    "swupd": {
+        "update": "sudo swupd update",
+        "install": "sudo swupd bundle-add"
+    },
+    "urpmi": {
+        "update": "sudo urpmi.update -a && sudo urpmi --auto-update",
+        "install": "sudo urpmi"
+    },
+        "tdnf": {
+        "update": "sudo tdnf check-update && sudo tdnf upgrade -y",
+        "install": "sudo tdnf install -y"
+    }
+}
+
+pkg_file = 'distroPKG.json'
+def createPKGJsonFile(file, list):
+    with open(file, "w") as PKGM:
+        json.dump(list, PKGM, indent=4)
+    print(" ")
+    print("[ Python Message ]: The distroPKG.json file did not exist and was created.")
+    print(" ")
+
+if not os.path.exists(pkg_managers_json):
+    createPKGJsonFile(pkg_file, pkg_managers_json)
