@@ -27,7 +27,7 @@ pkg_List = {
     ]
 }
 
-pkg_configuration = "config.json"
+pkg_configuration = "core/config.json"
 def createJsonFile(file, list):
     with open(file, "w") as savePackages:
         json.dump(list, savePackages, indent=4)
@@ -134,7 +134,7 @@ pkg_managers_json = {
     }
 }
 
-pkg_file = 'distroPKG.json'
+pkg_file = 'core/distroPKG.json'
 def createPKGJsonFile(file, list):
     with open(file, "w") as PKGM:
         json.dump(list, PKGM, indent=4)
@@ -142,5 +142,5 @@ def createPKGJsonFile(file, list):
     print("[ Python Message ]: The distroPKG.json file did not exist and was created.")
     print(" ")
 
-if not os.path.exists(pkg_managers_json):
+if not os.path.exists(pkg_file):
     createPKGJsonFile(pkg_file, pkg_managers_json)
