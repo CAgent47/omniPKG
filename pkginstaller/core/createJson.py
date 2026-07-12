@@ -2,11 +2,11 @@ import os
 import json
 
 pkg_List = {
-    "project": "Linux Package installer (Debian Based Distro)",
+    "project": "Linux Package installer",
     "author": "CAgent_47",
-	"GitHub": "https://github.com/CAgent47",
-	"LinkedIn": "https://www.linkedin.com/in/mohammad-shaygan-2a96a8387",
-	"X": "https://x.com/CAgent_47",
+	"GitHub": "github.com/CAgent47",
+	"LinkedIn": "linkedin.com/in/mohammad-shaygan-2a96a8387",
+	"X": "x.com/CAgent_47",
 
 
     "Packages": [
