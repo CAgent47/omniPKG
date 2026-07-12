@@ -15,9 +15,9 @@ def usePkgManager(managers):
             break
 
 
-with open('distroPKG.json', 'r') as PackageManager:
-    pkg_Managers = json.load(PackageManager)
+with open('core/distroPKG.json', 'r') as PackageManager:
+    pkg_Managers_2 = json.load(PackageManager)
 
 
-usePkgManager(pkg_Managers)
-print(pkg_Managers[user_package_Manager]["update"])
+usePkgManager(pkg_Managers_2)
+print(pkg_Managers_2[user_package_Manager]["update"])

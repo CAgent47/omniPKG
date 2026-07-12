@@ -3,7 +3,7 @@
         "update": "sudo apt update && sudo apt full-upgrade -y",
         "install": "sudo apt install -y"
     },
-    "dnf":{
+    "dnf": {
         "update": "sudo dnf check-update && sudo dnf upgrade -y",
         "install": "sudo dnf install -y"
     },
@@ -11,7 +11,7 @@
         "update": "sudo pacman -Syu --noconfirm",
         "install": "sudo pacman -S --noconfirm"
     },
-    "yum":{
+    "yum": {
         "update": "sudo yum check-update && sudo yum update -y",
         "install": "sudo yum install -y"
     },
@@ -23,7 +23,7 @@
         "update": "sudo apk update && sudo apk upgrade",
         "install": "sudo apk add"
     },
-    "xbps-install":{
+    "xbps-install": {
         "update": "sudo xbps-install -S && sudo xbps-install -Su",
         "install": "sudo xbps-install -y"
     },
@@ -87,7 +87,7 @@
         "update": "sudo urpmi.update -a && sudo urpmi --auto-update",
         "install": "sudo urpmi"
     },
-        "tdnf": {
+    "tdnf": {
         "update": "sudo tdnf check-update && sudo tdnf upgrade -y",
         "install": "sudo tdnf install -y"
     }

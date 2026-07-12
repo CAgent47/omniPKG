@@ -1,0 +1,23 @@
+{
+    "project": "Linux Package installer",
+    "author": "CAgent_47",
+    "GitHub": "github.com/CAgent47",
+    "LinkedIn": "linkedin.com/in/mohammad-shaygan-2a96a8387",
+    "X": "x.com/CAgent_47",
+    "Packages": [
+        "python3-full",
+        "curl",
+        "git",
+        "ssh",
+        "dos2unix",
+        "ipython3",
+        "libnotify-bin",
+        "unrar",
+        "wget",
+        "python3-pip",
+        "lolcat",
+        "fortune",
+        "cowsay",
+        "btop"
+    ]
+}
