@@ -5,17 +5,19 @@ def setPackageManager(manager):
     if shutil.which(manager):
         return manager
 
-pkg_Managers = None
-
 user_package_Manager = None
 
 def usePkgManager(managers):
     global user_package_Manager
-    for pm in managers:
-        if setPackageManager(pm):
-            user_package_Manager = pm
+    for key, Value in managers.items():
+        if setPackageManager(key):
+            user_package_Manager = key
             break
 
+
+with open('distroPKG.json', 'r') as PackageManager:
+    pkg_Managers = json.load(PackageManager)
+
+
 usePkgManager(pkg_Managers)
-system_Package_Manager = user_package_Manager
-print(system_Package_Manager)
+print(pkg_Managers[user_package_Manager]["install"])
