@@ -4,47 +4,91 @@
         "install": "sudo apt install -y"
     },
     "dnf":{
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo dnf check-update && sudo dnf upgrade -y",
+        "install": "sudo dnf install -y"
     },
     "pacman": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo pacman -Syu --noconfirm",
+        "install": "sudo pacman -S --noconfirm"
     },
     "yum":{
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo yum check-update && sudo yum update -y",
+        "install": "sudo yum install -y"
     },
     "zypper": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo zypper refresh && sudo zypper update -y",
+        "install": "sudo zypper install -y"
     },
     "apk": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo apk update && sudo apk upgrade",
+        "install": "sudo apk add"
     },
     "xbps-install":{
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo xbps-install -S && sudo xbps-install -Su",
+        "install": "sudo xbps-install -y"
     },
     "eopkg": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo eopkg update-repo && sudo eopkg upgrade -y",
+        "install": "sudo eopkg install -y"
     },
     "emerge": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo emerge --sync && sudo emerge -avuDN @world",
+        "install": "sudo emerge"
     },
     "nix": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "nix-channel --update && nix-env -u",
+        "install": "nix-env -iA nixpkgs."
     },
     "guix": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "guix pull && guix package -u",
+        "install": "guix install"
     },
     "pkg": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "update": "sudo pkg update && sudo pkg upgrade -y",
+        "install": "sudo pkg install -y"
+    },
+    "brew": {
+        "update": "brew update && brew upgrade",
+        "install": "brew install"
+    },
+    "flatpak": {
+        "update": "flatpak update -y",
+        "install": "flatpak install -y"
+    },
+    "snap": {
+        "update": "sudo snap refresh",
+        "install": "sudo snap install"
+    },
+    "winget": {
+        "update": "winget upgrade --all",
+        "install": "winget install"
+    },
+    "choco": {
+        "update": "choco upgrade all -y",
+        "install": "choco install -y"
+    },
+    "scoop": {
+        "update": "scoop update *",
+        "install": "scoop install"
+    },
+    "pkgin": {
+        "update": "sudo pkgin update && sudo pkgin upgrade",
+        "install": "sudo pkgin install"
+    },
+    "opkg": {
+        "update": "opkg update && opkg upgrade",
+        "install": "opkg install"
+    },
+    "swupd": {
+        "update": "sudo swupd update",
+        "install": "sudo swupd bundle-add"
+    },
+    "urpmi": {
+        "update": "sudo urpmi.update -a && sudo urpmi --auto-update",
+        "install": "sudo urpmi"
+    },
+        "tdnf": {
+        "update": "sudo tdnf check-update && sudo tdnf upgrade -y",
+        "install": "sudo tdnf install -y"
     }
 }
