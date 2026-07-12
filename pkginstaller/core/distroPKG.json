@@ -1,0 +1,50 @@
+{
+    "apt": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "dnf":{
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "pacman": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "yum":{
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "zypper": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "apk": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "xbps-install":{
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "eopkg": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "emerge": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "nix": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "guix": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    },
+    "pkg": {
+        "update": "sudo apt update && sudo apt full-upgrade -y",
+        "install": "sudo apt install -y"
+    }
+}

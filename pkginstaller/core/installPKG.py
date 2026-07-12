@@ -1,23 +1,11 @@
 import shutil
+import json
 
 def setPackageManager(manager):
     if shutil.which(manager):
         return manager
 
-pkg_Managers = (
-    "apt",
-    "dnf",
-    "pacman",
-    "yum",
-    "zypper",
-    "apk",
-    "xbps-install",
-    "eopkg",
-    "emerge",
-    "nix",
-    "guix",
-    "pkg"
-)
+pkg_Managers = None
 
 user_package_Manager = None
 
