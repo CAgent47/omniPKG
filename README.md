@@ -1,146 +1,129 @@
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+# OmniPKG (V1.5)
 
-# 🚀Installing-Linux-Debian_Based-packages🛠️
+**A universal, distro-agnostic package bootstrapper for Linux.**
 
-_Installing basic packages and libraries in Linux for people who are newly installing or changing the operating system. Linux based on Debian Or Ubuntu._
+OmniPKG detects your system's package manager automatically and installs a predefined list of essential packages — no more writing separate install scripts for apt, dnf, pacman, and everything else.
 
-# Update version (V1.2):
-- optimized script
-- python script for create file if not exists
-- added secure installation
-- added update key with boolian variable for beter setting
-- clean code
-- secured script for just use (apt)
+
+
+![Version](https://img.shields.io/badge/version-1.5-blue)
+
+
+
+
+![Shell](https://img.shields.io/badge/shell-bash-green)
+
+
+
+
+![Python](https://img.shields.io/badge/python-3-yellow)
+
+
+
+
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+
 
 ---
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 
-# 📦Packages and libraries that are installed
+## ✨ Features
 
-```json
-"author": "CAgent_47",
-"Packages": [
-        "python3-full",
-        "curl",
-        "git",
-        "ssh",
-        "dos2unix",
-        "ipython3",
-        "libnotify-bin",
-        "unrar",
-        "wget",
-        "python3-pip",
-        "lolcat",
-        "fortune",
-        "cowsay",
-        "btop"
-    ]
+- **Automatic package manager detection** — supports `apt`, `dnf`, `pacman`, `yum`, `zypper`, `apk`, `xbps-install`, `eopkg`, `emerge`, `nix`, `guix`, `pkg`, `brew`, `flatpak`, `snap`, `winget`, `choco`, `scoop`, `pkgin`, `opkg`, `swupd`, `urpmi`, and `tdnf`.
+- **Zero manual configuration** — generates its own config files on first run if they're missing.
+- **Idempotent installs** — skips packages that are already installed.
+- **Auto-installs `jq`** if it's missing, since it's required for parsing.
+- **Simple, readable output** — clear `[ + ]` / `[ - ]` status per package.
+
+## 📁 Project Structure
+
+```
+pkginstaller/
+├── main.sh              # Entry point — run this
+└── core/
+    ├── createJson.py    # Generates config JSON files if they don't exist
+    ├── detectPKG.py     # Detects the system's package manager and lists its target packages
+    ├── installPKG.py    # Builds the install command for a given package
+    ├── updatePKG.py     # Builds the update/upgrade command for the detected package manager
+    ├── distroPKG.json   # Update & install syntax for every supported package manager
+    └── packages.json    # List of packages to install + project metadata
 ```
 
----
+## 🚀 Usage
 
-![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+Clone the repo and run the script:
 
-# 📂How To Run?
-
-1. Downloads File
-
-```bash
-git clone https://github.com/CAgent47/Installing-Linux-Ubuntu-packages/archive/refs/heads/main.zip
+```
+git clone https://github.com/CAgent47/OmniPKG.git
+cd OmniPKG/pkginstaller
+chmod +x main.sh
+./main.sh
 ```
 
-🔧 2.Give permission:
+That's it. OmniPKG will:
 
-```bash
-        chmod +x installer.sh
+1. Generate the required JSON config files if they're missing.
+2. Update your package manager's repositories.
+3. Install `jq` if it isn't already present.
+4. Loop through the package list in `packages.json` and install anything missing.
+
+## ⚙️ Configuration
+
+Want to customize which packages get installed? Just edit `core/packages.json`:
+
+```
+{
+  "Packages": [
+    "curl",
+    "git",
+    "wget"
+  ]
+}
 ```
 
-▶️ 3.Run the script:
+Need to add support for a package manager, or tweak its install/update syntax? Edit `core/distroPKG.json` — each entry just needs an `install` and `update` command.
 
-```bash
-        bash installer.sh
-```
+## 🗺️ Supported Package Managers
 
----
+| Manager | Distro / Platform |
+|---|---|
+| `apt` | Debian, Ubuntu, Mint |
+| `dnf` | Fedora, RHEL 8+ |
+| `yum` | CentOS, older RHEL |
+| `pacman` | Arch, Manjaro, EndeavourOS |
+| `zypper` | openSUSE |
+| `apk` | Alpine |
+| `xbps-install` | Void Linux |
+| `eopkg` | Solus |
+| `emerge` | Gentoo |
+| `urpmi` | Mageia |
+| `swupd` | Clear Linux |
+| `tdnf` | Photon OS |
+| `nix` / `guix` | NixOS / Guix System |
+| `pkg` / `pkgin` | FreeBSD, NetBSD |
+| `opkg` | Embedded / OpenWrt |
+| `flatpak` / `snap` | Cross-distro sandboxed apps |
+| `brew` | Linuxbrew / macOS |
+| `winget` / `choco` / `scoop` | Windows |
 
-# Supported operating systems
+## 🧩 Requirements
 
-```markdown
-kali
-Debian
-Ubuntu
-mint
-POP!_OS
-MX Linux
-Devuan
-Sparky Linux
-antiX
-Porrot OS
-```
+- Bash
+- Python 3
+- `sudo` privileges (for most package managers)
 
-**More distributions will be supported in the next update**
----
+## 🤝 Contributing
 
-![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
+Pull requests are welcome! If your package manager isn't listed, feel free to open an issue or PR with its `install`/`update` syntax.
 
-# 🔧 Is it possible to edit the packages that are installed?
+## 📄 License
 
-Yes, you can specify which packages to install.
+MIT License
 
-- By going to the json file in the presentation ("Packages") you can rename the packages or delete them.
+## 👤 Author
 
----
+**CAgent_47** (Mohammad Shaygan)
 
-![Tux](https://img.shields.io/badge/Tux-000000?style=for-the-badge&logo=linux&logoColor=white)
-
-# 📷 Example Output
-
-1️⃣ After installing the packages:
-
-        The package installation was successful. Do you want to restart? (y/n): 
-        
-2️⃣ If your answer was yes:
-
-        5 seconds until restart to cancel (CTRL + C)! 
-        reboot (after 5 seconds)
-        
-3️⃣ If your answer was no:
-
-        Restart later and let it settle. XD
-        Good Lock!<3
-        
-                _,met$$$$$gg.
-             ,g$$$$$$$$$$$$$$$P.                   
-           ,g$$P""       """Y$$.".       
-          ,$$P'              `$$$.               
-        ',$$P       ,ggs.     `$$b:            
-        `d$$'     ,$P"'   .    $$$                        
-         $$P      d$'     ,    $$P                       
-         $$:      $$.   -    ,d$$'                   
-         $$;      Y$b._   _,d$P'                                                
-         `$$b      "-.__                                      
-          `Y$$b                             
-           `Y$$.                                
-             `$$b.                             
-               `Y$$b.                             
-                 `"Y$b._                       
-                     `""""                     
-                                                  
-
----
-
-# -👤Created By CAgent_47
-
-# -📜MTA Scripter • Linux Learner🐧 • Python Learner • SQL • Bash Scripter 🇺🇸🔥
-
-**Topics:**
-[#bash](https://github.com/topics/bash) •
-[#linux](https://github.com/topics/linux) •
-[#automation](https://github.com/topics/automation) •
-[#json](https://github.com/topics/json) •
-[#debian](https://github.com/topics/debian) •
-[#CAgent_47](https://github.com/topics/CAgent47)
-
----
-
-![Banner](banner.png)
+- GitHub: [github.com/CAgent47](https://github.com/CAgent47)
+- LinkedIn: [linkedin.com/in/mohammad-shaygan-2a96a8387](https://linkedin.com/in/mohammad-shaygan-2a96a8387)
+- X: [x.com/CAgent_47](https://x.com/CAgent_47)
