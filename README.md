@@ -1,4 +1,4 @@
-# OmniPKG
+# OmniPKG(V1.5)
 
 **A universal, distro-agnostic package bootstrapper for Linux.**
 
