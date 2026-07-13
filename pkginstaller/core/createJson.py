@@ -27,7 +27,7 @@ pkg_List = {
     ]
 }
 
-pkg_configuration = "core/config.json"
+pkg_configuration = "core/packages.json"
 def createJsonFile(file, list):
     with open(file, "w") as savePackages:
         json.dump(list, savePackages, indent=4)
@@ -37,6 +37,8 @@ def createJsonFile(file, list):
 
 if not os.path.exists(pkg_configuration):
     createJsonFile(pkg_configuration, pkg_List)
+else:
+    print("[ Python Message ]: Success")
 
 
 pkg_managers_json = {
@@ -144,3 +146,5 @@ def createPKGJsonFile(file, list):
 
 if not os.path.exists(pkg_file):
     createPKGJsonFile(pkg_file, pkg_managers_json)
+else:
+    print("[ Python Message ]: Success")
