@@ -66,8 +66,8 @@ In short: Python figures out *what* command to run for your specific system, and
 ### Option 1 — Full clone (recommended)
 
 ```
-git clone https://github.com/CAgent47/OmniPKG.git
-cd OmniPKG/pkginstaller
+git clone https://github.com/CAgent47/omniPKG.git
+cd OmniPKG/[CAgent_47]omnipkg
 chmod +x main.sh
 ./main.sh
 ```
