@@ -37,7 +37,7 @@ If you set up a lot of machines, or you're writing a setup script that needs to 
 ## 📁 Project Structure
 
 ```
-pkginstaller/
+[CAgent_47]omnipkg/
 ├── main.sh              # Entry point — this is the file you actually run
 └── core/
     ├── createJson.py    # Generates the config JSON files below if they don't exist yet
