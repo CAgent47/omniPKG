@@ -7,7 +7,7 @@ pkg_List = {
         "author": "CAgent_47",
         "GitHub": "github.com/CAgent47",
         "LinkedIn": "linkedin.com/in/mohammad-shaygan-2a96a8387",
-        "X": "x.com/CAgent_47",
+        "X": "x.com/CAgent_47"
     },
     "apt": [
             "python3-full",
