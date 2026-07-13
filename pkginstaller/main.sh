@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-INSTALL=$(python3 core/installPKG.py)
-UPDATE=$(python3 core/updatePKG.py)
-CREATE_JSON=$(python3 core/createJson.py)
+python3 core/createJson.py
+# eval $(python3 core/updatePKG.py)
+eval $(python3 core/installPKG.py) cowsay
 # Created By CAgent_47
