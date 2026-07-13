@@ -1,8 +1,8 @@
-# OmniPKG (V1.5)
+# OmniPKG
 
 **A universal, distro-agnostic package bootstrapper for Linux.**
 
-OmniPKG detects your system's package manager automatically and installs a predefined list of essential packages — no more writing separate install scripts for apt, dnf, pacman, and everything else.
+OmniPKG is a small tool that automatically detects which package manager your Linux system uses (`apt`, `dnf`, `pacman`, etc.) and installs a list of essential packages for you — automatically, without you needing to know the exact install command for your specific distro.
 
 
 
@@ -27,27 +27,52 @@ OmniPKG detects your system's package manager automatically and installs a prede
 
 ---
 
+## 🤔 What problem does this solve?
+
+Every Linux distribution has its own package manager and its own syntax for installing software:
+
+```
+Ubuntu/Debian:   sudo apt install curl
+Fedora:          sudo dnf install curl
+Arch:            sudo pacman -S curl
+Alpine:          sudo apk add curl
+```
+
+If you set up a lot of machines, or you're writing a setup script that needs to work across different distros, you either write a huge if/else chain yourself, or you use OmniPKG, which does that detection and translation for you.
+
 ## ✨ Features
 
 - **Automatic package manager detection** — supports `apt`, `dnf`, `pacman`, `yum`, `zypper`, `apk`, `xbps-install`, `eopkg`, `emerge`, `nix`, `guix`, `pkg`, `brew`, `flatpak`, `snap`, `winget`, `choco`, `scoop`, `pkgin`, `opkg`, `swupd`, `urpmi`, and `tdnf`.
 - **Zero manual configuration** — generates its own config files on first run if they're missing.
-- **Idempotent installs** — skips packages that are already installed.
-- **Auto-installs `jq`** if it's missing, since it's required for parsing.
-- **Simple, readable output** — clear `[ + ]` / `[ - ]` status per package.
+- **Idempotent installs** — skips packages that are already installed, so it's safe to run more than once.
+- **Auto-installs `jq`** if it's missing, since the scripts need it to read the JSON config files.
+- **Simple, readable output** — a clear `[ + ]` (installing) or `[ - ]` (already installed) line per package.
 
 ## 📁 Project Structure
 
 ```
 pkginstaller/
-├── main.sh              # Entry point — run this
+├── main.sh              # Entry point — this is the file you actually run
 └── core/
-    ├── createJson.py    # Generates config JSON files if they don't exist
-    ├── detectPKG.py     # Detects the system's package manager and lists its target packages
-    ├── installPKG.py    # Builds the install command for a given package
-    ├── updatePKG.py     # Builds the update/upgrade command for the detected package manager
-    ├── distroPKG.json   # Update & install syntax for every supported package manager
-    └── packages.json    # List of packages to install + project metadata
+    ├── createJson.py    # Generates the config JSON files below if they don't exist yet
+    ├── detectPKG.py     # Figures out your package manager and prints the packages it should install
+    ├── installPKG.py    # Given one package name, prints the correct install command for your system
+    ├── updatePKG.py     # Prints the correct "update repositories" command for your system
+    ├── distroPKG.json   # A dictionary of install/update commands for every supported package manager
+    └── packages.json    # The list of packages you want installed, plus project info
 ```
+
+## 🧠 How it works
+
+When you run `main.sh`, this happens step by step:
+
+1. **`createJson.py` runs first.** It checks if `distroPKG.json` and `packages.json` exist in `core/`. If either is missing, it creates them with default values, so the project works even on a completely fresh clone.
+2. **`updatePKG.py` runs and prints an update command** (e.g. `sudo apt update && sudo apt full-upgrade -y`). `main.sh` captures that output with `eval` and actually runs it, refreshing your package manager's repository list.
+3. **`jq` is checked.** If it's not installed, `installPKG.py` is used to install it, since the rest of the script needs `jq`-style JSON parsing to work.
+4. **`detectPKG.py` runs**, detects your package manager, and prints the list of packages from `packages.json` that are meant to be installed. `main.sh` stores this list in a Bash array.
+5. **The script loops over that array.** For each package: if it's already installed, it prints `[ - ]` and skips it. If it's missing, `installPKG.py` prints the correct install command for that one package, and `main.sh` runs it with `eval`.
+
+In short: Python does the "figure out what command to run" part, and Bash does the "actually run it" part.
 
 ## 🚀 Usage
 
@@ -60,16 +85,13 @@ chmod +x main.sh
 ./main.sh
 ```
 
-That's it. OmniPKG will:
-
-1. Generate the required JSON config files if they're missing.
-2. Update your package manager's repositories.
-3. Install `jq` if it isn't already present.
-4. Loop through the package list in `packages.json` and install anything missing.
+You'll need `sudo` access for most package managers, since installing and updating system packages requires root privileges.
 
 ## ⚙️ Configuration
 
-Want to customize which packages get installed? Just edit `core/packages.json`:
+### Changing which packages get installed
+
+Edit `core/packages.json` and change the `Packages` array:
 
 ```
 {
@@ -81,7 +103,18 @@ Want to customize which packages get installed? Just edit `core/packages.json`:
 }
 ```
 
-Need to add support for a package manager, or tweak its install/update syntax? Edit `core/distroPKG.json` — each entry just needs an `install` and `update` command.
+### Adding a new package manager
+
+Edit `core/distroPKG.json`. Each entry needs an `install` and `update` command:
+
+```
+{
+  "apt": {
+    "update": "sudo apt update && sudo apt full-upgrade -y",
+    "install": "sudo apt install -y"
+  }
+}
+```
 
 ## 🗺️ Supported Package Managers
 
@@ -111,6 +144,17 @@ Need to add support for a package manager, or tweak its install/update syntax? E
 - Bash
 - Python 3
 - `sudo` privileges (for most package managers)
+
+## ❓ FAQ / Troubleshooting
+
+**Why does it ask for my password?**
+Installing or updating system packages requires root access, so most commands are run with `sudo`.
+
+**My package manager isn't in the list, what do I do?**
+Open an issue or a PR on GitHub with the correct `install`/`update` syntax for it, and it can be added to `distroPKG.json`.
+
+**Is it safe to run `main.sh` multiple times?**
+Yes — it checks whether each package is already installed before trying to install it, so running it again just skips what you already have.
 
 ## 🤝 Contributing
 
