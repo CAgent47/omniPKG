@@ -128,7 +128,7 @@ main() {
     fi
     
     print_info "Detecting packages to install..."
-    Packages=($(python3 core/detectPKG.py))
+    mapfile -t Packages < <($(python3 core/detectPKG.py))
     
     # Install packages
     echo "=========================================="
