@@ -67,7 +67,7 @@ In short: Python figures out *what* command to run for your specific system, and
 
 ```
 git clone https://github.com/CAgent47/omniPKG.git
-cd OmniPKG/[CAgent_47]omnipkg
+cd omniPKG/[CAgent_47]omnipkg
 chmod +x main.sh
 ./main.sh
 ```
@@ -149,12 +149,14 @@ Edit `core/packages.json` and change the `Packages` array:
 
 ```
 {
-  "Packages": [
+  "apt": [
     "curl",
     "git",
     "wget"
+    <and your packages>
   ]
 }
+and more package managers
 ```
 
 ### Adding a new package manager
