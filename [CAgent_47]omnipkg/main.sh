@@ -29,31 +29,31 @@ check_python_files() {
             missing_files+=("$file")
         fi
     done
-    
+
     if [[ ${#missing_files[@]} -gt 0 ]]; then
         print_error "Missing Python core files: ${missing_files[*]}"
         return 1
     fi
-    
+
     return 0
 }
 
 # Function to clone the repository
 clone_repository() {
     print_info "Cloning omniPKG repository..."
-    
+
     # Check if git is installed
     if ! command -v git &> /dev/null; then
         print_error "Git is not installed. Please install git first."
         exit 1
     fi
-    
+
     # Backup existing files if any
     if [[ -d "core" ]]; then
         print_info "Backing up existing core directory..."
         mv core core_backup_$(date +%s)
     fi
-    
+
     # Clone the repository
     if git clone https://github.com/CAgent47/omniPKG.git temp_repo; then
         # Copy core files from cloned repo
@@ -80,7 +80,7 @@ main() {
     print_info "Starting OmniPKG Package Installer v1.5"
     print_info "Author: CAgent_47"
     echo "=========================================="
-    
+
     # Check for Python core files
     if ! check_python_files; then
         print_info "Core Python files are missing!"
@@ -92,7 +92,7 @@ main() {
         echo "  - core/detectPKG.py"
         echo ""
         print_info "You can download them from: https://github.com/CAgent47/omniPKG.git"
-        
+
         read -p "Do you want to download them now? (y/n): " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -107,34 +107,34 @@ main() {
             exit 1
         fi
     fi
-    
+
     # Check if Python is installed
     if ! command -v python3 &> /dev/null; then
         print_error "Python 3 is not installed. Please install Python 3 first."
         exit 1
     fi
-    
+
     # Execute the main installation process
     print_info "Creating package mappings..."
     python3 core/createJson.py
-    
+
     print_info "Updating package manager..."
     eval $(python3 core/updatePKG.py)
-    
+
     # Check and install jq if needed
     if ! command -v jq &> /dev/null; then 
         print_info "Installing jq..."
         eval $(python3 core/installPKG.py) jq
     fi
-    
+
     print_info "Detecting packages to install..."
     mapfile -t Packages < <($(python3 core/detectPKG.py))
-    
+
     # Install packages
     echo "=========================================="
     print_info "Starting package installation..."
     echo ""
-    
+
     for PKG in "${Packages[@]}"; do
         if ! command -v "$PKG" &> /dev/null; then
             echo "[ + ]: Installing $PKG" 
@@ -143,7 +143,7 @@ main() {
             echo "[ - ]: $PKG Already installed on your system"
         fi
     done
-    
+
     echo "=========================================="
     print_success "Installation completed successfully!"
     echo ""
