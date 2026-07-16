@@ -1,6 +1,8 @@
 import os
 import json
 
+#‌def createJsonFileIFNotExists()
+
 pkg_List = {
     "Author INFO":{
         "project": "Linux Package installer",
@@ -307,6 +309,7 @@ def createJsonFile(file, list):
     print("[ Python Message ]: The json file did not exist and was created. Edit the config.json file to edit the installable packages.")
     print(" ")
 
+
 if not os.path.exists(pkg_configuration):
     createJsonFile(pkg_configuration, pkg_List)
 else:
@@ -409,14 +412,8 @@ pkg_managers_json = {
 }
 
 pkg_file = 'core/distroPKG.json'
-def createPKGJsonFile(file, list):
-    with open(file, "w") as PKGM:
-        json.dump(list, PKGM, indent=4)
-    print(" ")
-    print("[ Python Message ]: The distroPKG.json file did not exist and was created.")
-    print(" ")
 
 if not os.path.exists(pkg_file):
-    createPKGJsonFile(pkg_file, pkg_managers_json)
+    createJsonFile(pkg_file, pkg_managers_json)
 else:
     print("[ Python Message ]: Success")
