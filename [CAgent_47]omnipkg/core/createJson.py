@@ -1,5 +1,4 @@
-import os
-import json
+import omnimadule
 pkg_managers_json = {
     "apt": {
         "update": "sudo apt update && sudo apt full-upgrade -y",
@@ -394,19 +393,5 @@ pkg_List = {
 pkg_file = 'core/distroPKG.json'
 pkg_configuration = "core/packages.json"
 
-def createJsonFileIFNotExists(file, creater, val):
-    if not os.path.exists(file):
-        createJsonFile(creater, val)
-    else:
-        print("[ Python Message ]: Success")
-
-
-def createJsonFile(file, list):
-    with open(file, "w") as savePackages:
-        json.dump(list, savePackages, indent=4)
-    print(" ")
-    print("[ Python Message ]: The json file did not exist and was created. Edit the config.json file to edit the installable packages.")
-    print(" ")
-
-createJsonFileIFNotExists(pkg_configuration, pkg_configuration, pkg_List)
-createJsonFileIFNotExists(pkg_file, pkg_file, pkg_managers_json)
+omnimadule.createJsonFileIFNotExists(pkg_configuration, pkg_configuration, pkg_List)
+omnimadule.createJsonFileIFNotExists(pkg_file, pkg_file, pkg_managers_json)

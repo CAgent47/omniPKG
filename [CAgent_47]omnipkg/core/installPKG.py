@@ -1,12 +1,7 @@
-import shutil
-import json
+import omnimadule
 
-with open('core/distroPKG.json', 'r') as installDetect:
-    detectSyntax = json.load(installDetect)
+detectSyntax = omnimadule.loadJson('core/distroPKG.json')
 
-for key, syntax in detectSyntax.items():
-    if shutil.which(key):
-        SyntaxInstallDetect = key
-        break
+SyntaxInstallDetect = omnimadule.loopInDICT(detectSyntax)
 
 print(detectSyntax[SyntaxInstallDetect]["install"])

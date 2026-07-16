@@ -1,16 +1,11 @@
 import shutil
-import json
+import omnimadule
 
-with open('core/distroPKG.json', 'r') as Dtect:
-    Dist = json.load(Dtect)
+Dist = omnimadule.loadJson('core/distroPKG.json')
 
-for key, value in Dist.items():
-    if shutil.which(key):
-        UserDIST = key
-        break
+UserDIST = omnimadule.loopInDICT(Dist)
 
-with open('core/packages.json', 'r') as Select:
-    Selected_Dist = json.load(Select)
+Selected_Dist = omnimadule.loadJson('core/packages.json')
 
 for key, pkg in Selected_Dist.items():
     if shutil.which(key):
