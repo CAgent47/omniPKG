@@ -4,6 +4,9 @@
 
 OmniPKG is a small tool that automatically detects which package manager your Linux system uses (`apt`, `dnf`, `pacman`, etc.) and installs a list of essential packages for you — automatically, without you needing to know the exact install command for your specific distro.
 
+**note:**
+`Adding Docker Contanier File`
+
 ![Version](https://img.shields.io/badge/version-1.5-blue)
 ![Shell](https://img.shields.io/badge/shell-bash-green)
 ![Python](https://img.shields.io/badge/python-3-yellow)
