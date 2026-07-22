@@ -1,94 +1,117 @@
 {
     "apt": {
         "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y"
+        "install": "sudo apt install -y",
+        "clean": "sudo apt autoremove -y && sudo apt clean"
     },
     "dnf": {
         "update": "sudo dnf check-update && sudo dnf upgrade -y",
-        "install": "sudo dnf install -y"
+        "install": "sudo dnf install -y",
+        "clean": "sudo dnf autoremove -y && sudo dnf clean all"
     },
     "pacman": {
         "update": "sudo pacman -Syu --noconfirm",
-        "install": "sudo pacman -S --noconfirm"
+        "install": "sudo pacman -S --noconfirm",
+        "clean": "sudo pacman -Rns $(pacman -Qdtq) --noconfirm 2>/dev/null || true && sudo pacman -Scc --noconfirm"
     },
     "yum": {
         "update": "sudo yum check-update && sudo yum update -y",
-        "install": "sudo yum install -y"
+        "install": "sudo yum install -y",
+        "clean": "sudo yum autoremove -y && sudo yum clean all"
     },
     "zypper": {
         "update": "sudo zypper refresh && sudo zypper update -y",
-        "install": "sudo zypper install -y"
+        "install": "sudo zypper install -y",
+        "clean": "sudo zypper clean && sudo zypper packages --unneeded | awk 'NR>3 {print $5}' | xargs sudo zypper rm -y 2>/dev/null || true"
     },
     "apk": {
         "update": "sudo apk update && sudo apk upgrade",
-        "install": "sudo apk add"
+        "install": "sudo apk add",
+        "clean": "sudo apk cache clean && sudo apk del $(apk info --installed --orphaned) 2>/dev/null || true"
     },
     "xbps-install": {
         "update": "sudo xbps-install -S && sudo xbps-install -Su",
-        "install": "sudo xbps-install -y"
+        "install": "sudo xbps-install -y",
+        "clean": "sudo xbps-remove -Oo && sudo xbps-remove -y $(xbps-query --list-orphans) 2>/dev/null || true"
     },
     "eopkg": {
         "update": "sudo eopkg update-repo && sudo eopkg upgrade -y",
-        "install": "sudo eopkg install -y"
+        "install": "sudo eopkg install -y",
+        "clean": "sudo eopkg remove --orphans -y && sudo eopkg clean"
     },
     "emerge": {
         "update": "sudo emerge --sync && sudo emerge -avuDN @world",
-        "install": "sudo emerge"
+        "install": "sudo emerge",
+        "clean": "sudo emerge --depclean && sudo emerge --prune"
     },
     "nix": {
         "update": "nix-channel --update && nix-env -u",
-        "install": "nix-env -iA nixpkgs."
+        "install": "nix-env -iA nixpkgs.",
+        "clean": "nix-collect-garbage -d && nix-store --optimise"
     },
     "guix": {
         "update": "guix pull && guix package -u",
-        "install": "guix install"
+        "install": "guix install",
+        "clean": "guix gc && guix package --delete-generations"
     },
     "pkg": {
         "update": "sudo pkg update && sudo pkg upgrade -y",
-        "install": "sudo pkg install -y"
+        "install": "sudo pkg install -y",
+        "clean": "sudo pkg autoremove -y && sudo pkg clean -y"
     },
     "brew": {
         "update": "brew update && brew upgrade",
-        "install": "brew install"
+        "install": "brew install",
+        "clean": "brew cleanup --prune=all && brew autoremove"
     },
     "flatpak": {
         "update": "flatpak update -y",
-        "install": "flatpak install -y"
+        "install": "flatpak install -y",
+        "clean": "flatpak uninstall --unused -y && flatpak repair"
     },
     "snap": {
         "update": "sudo snap refresh",
-        "install": "sudo snap install"
+        "install": "sudo snap install",
+        "clean": "sudo snap remove --revision $(snap list --all | awk 'NR>1 {print $1}' | xargs -I {} snap changes {} | grep -E 'Remove.*Done' | awk '{print $2}' | head -1) 2>/dev/null || true && sudo snap set system refresh.retain=2"
     },
     "winget": {
         "update": "winget upgrade --all",
-        "install": "winget install"
+        "install": "winget install",
+        "clean": "winget uninstall --all --force 2>/dev/null || true && winget settings --enable clean"
     },
     "choco": {
         "update": "choco upgrade all -y",
-        "install": "choco install -y"
+        "install": "choco install -y",
+        "clean": "choco cleanup -y && choco cache remove -y"
     },
     "scoop": {
         "update": "scoop update *",
-        "install": "scoop install"
+        "install": "scoop install",
+        "clean": "scoop cleanup --cache --all && scoop cache rm --all"
     },
     "pkgin": {
         "update": "sudo pkgin update && sudo pkgin upgrade",
-        "install": "sudo pkgin install"
+        "install": "sudo pkgin install",
+        "clean": "sudo pkgin autoremove && sudo pkgin clean"
     },
     "opkg": {
         "update": "opkg update && opkg upgrade",
-        "install": "opkg install"
+        "install": "opkg install",
+        "clean": "opkg remove --autoremove && opkg clean"
     },
     "swupd": {
         "update": "sudo swupd update",
-        "install": "sudo swupd bundle-add"
+        "install": "sudo swupd bundle-add",
+        "clean": "sudo swupd clean --all && sudo swupd bundle-remove --orphans"
     },
     "urpmi": {
         "update": "sudo urpmi.update -a && sudo urpmi --auto-update",
-        "install": "sudo urpmi"
+        "install": "sudo urpmi",
+        "clean": "sudo urpmi --clean && sudo urpme --orphans -a"
     },
     "tdnf": {
         "update": "sudo tdnf check-update && sudo tdnf upgrade -y",
-        "install": "sudo tdnf install -y"
+        "install": "sudo tdnf install -y",
+        "clean": "sudo tdnf autoremove -y && sudo tdnf clean all"
     }
 }

@@ -99,6 +99,8 @@ if [[ "$InstallREQ" == "y" ]] || [[ "$InstallREQ" == "Y" ]]; then
     for package in "${Packages[@]}"; do
         installer "$package"
     done
+    # shellcheck disable=SC2046
+    eval $(python3 core/cleanPKG.py)
 else
     echo "OK Edit your Packages In The packages.json In core folder"
 fi
