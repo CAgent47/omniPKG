@@ -2,6 +2,8 @@
 
 **A universal, distro-agnostic package bootstrapper for Linux.**
 
+# Fixing Problems....
+
 OmniPKG is a small tool that automatically detects which package manager your Linux system uses (`apt`, `dnf`, `pacman`, etc.) and installs a list of essential packages for you — automatically, without you needing to know the exact install command for your specific distro.
 
 **note:**
