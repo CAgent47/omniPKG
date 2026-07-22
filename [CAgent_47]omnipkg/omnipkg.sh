@@ -88,7 +88,7 @@ for showPKG in "${Packages[@]}"; do
 done
 
 echo " "
-echo "Are you sure these packages are installed? (y / n)"
+echo "do you want to install these packages? (y / n)"
 # shellcheck disable=SC2162
 # shellcheck disable=SC2034
 
