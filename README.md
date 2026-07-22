@@ -1,243 +1,150 @@
-# OmniPKG(V1.5)
+<div align="center">
 
-**A universal, distro-agnostic package bootstrapper for Linux.**
+# 🐧 OmniPKG — Universal Package Bootstrapper
 
-# Fixing Problems....
+**One script. Any Debian-based distro. Zero manual package hunting.**
 
-OmniPKG is a small tool that automatically detects which package manager your Linux system uses (`apt`, `dnf`, `pacman`, etc.) and installs a list of essential packages for you — automatically, without you needing to know the exact install command for your specific distro.
-
-**note:**
-`Adding Docker Contanier File`
-
-![Version](https://img.shields.io/badge/version-1.5-blue)
-![Shell](https://img.shields.io/badge/shell-bash-green)
+![Version](https://img.shields.io/badge/version-v1.7-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Shell](https://img.shields.io/badge/shell-bash-1f425f)
 ![Python](https://img.shields.io/badge/python-3-yellow)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Platform](https://img.shields.io/badge/platform-Linux-orange)
+
+</div>
 
 ---
 
-## 🤔 What problem does this solve?
+## 📖 About
 
-Every Linux distribution has its own package manager and its own syntax for installing software:
+**OmniPKG** is a smart, interactive package bootstrapper for Debian-based Linux distributions. Instead of manually installing dependencies one by one, OmniPKG detects your system, checks a simple JSON config for the packages you need, and installs everything for you — with colorful, readable output at every step.
 
-```
-Ubuntu/Debian:   sudo apt install curl
-Fedora:          sudo dnf install curl
-Arch:            sudo pacman -S curl
-Alpine:          sudo apk add curl
-```
+Built for people who are tired of typing `sudo apt install` fifteen times in a row.
 
-If you set up a lot of machines, or you're writing a setup script that needs to work across different distros, you either write a huge if/else chain yourself, or you use OmniPKG, which does that detection and translation for you.
+---
 
 ## ✨ Features
 
-- **Automatic package manager detection** — supports `apt`, `dnf`, `pacman`, `yum`, `zypper`, `apk`, `xbps-install`, `eopkg`, `emerge`, `nix`, `guix`, `pkg`, `brew`, `flatpak`, `snap`, `winget`, `choco`, `scoop`, `pkgin`, `opkg`, `swupd`, `urpmi`, and `tdnf`.
-- **Self-healing / standalone mode** — if you only have `main.sh` and the `core/` folder is missing, the script offers to clone the rest of the project from GitHub automatically.
-- **Zero manual configuration** — generates its own config files on first run if they're missing.
-- **Idempotent installs** — skips packages that are already installed, so it's safe to run more than once.
-- **Auto-installs `jq`** if it's missing, since the scripts need it to read the JSON config files.
-- **Colored, readable output** — clear `[ INFO ]`, `[ SUCCESS ]`, and `[ ERROR ]` messages, plus a `[ + ]` / `[ - ]` line per package.
-- **Safe error handling** — uses `set -euo pipefail` and a trap, so the script stops cleanly on the first real error instead of continuing in a broken state.
+- 🔍 **Auto-detection** of installed vs missing packages before touching anything
+- 📦 **JSON-driven configuration** — edit `core/packages.json` to control exactly what gets installed
+- 🎨 **Colorful, human-friendly terminal output** (success / warning / error states clearly marked)
+- ✅ **Interactive confirmation** before any install runs — nothing happens silently
+- 🧹 **Automatic cleanup** after installation (cache/temp files removed via `cleanPKG.py`)
+- 🔄 **Self-updating system check** — runs a full system update before installing anything
+- 🛡️ **Safe by design** — uses `set -euo pipefail`, checks before installing, never force-installs blindly
 
-## 📁 Project Structure
+---
 
-```
-[CAgent_47]omnipkg/
-├── main.sh              # Entry point — this is the file you actually run
-└── core/
-    ├── createJson.py    # Generates the config JSON files below if they don't exist yet
-    ├── detectPKG.py     # Figures out your package manager and prints the packages it should install
-    ├── installPKG.py    # Given one package name, prints the correct install command for your system
-    ├── updatePKG.py     # Prints the correct "update repositories" command for your system
-    ├── distroPKG.json   # A dictionary of install/update commands for every supported package manager
-    └── packages.json    # The list of packages you want installed, plus project info
-```
-
-## 🧠 How it works
-
-When you run `main.sh`, this happens step by step:
-
-1. **It checks that the `core/` Python files exist.** If any are missing (e.g. you only downloaded `main.sh` by itself), it asks whether you want it to clone the full project from GitHub and pull in the missing `core/` folder automatically.
-2. **`createJson.py` runs next.** It checks if `distroPKG.json` and `packages.json` exist. If either is missing, it creates them with default values, so the project works even on a fresh setup.
-3. **`updatePKG.py` runs and prints an update command** (e.g. `sudo apt update && sudo apt full-upgrade -y`). `main.sh` captures that output with `eval` and actually runs it, refreshing your package manager's repository list.
-4. **`jq` is checked.** If it's not installed, `installPKG.py` is used to install it, since the rest of the script relies on `jq`-style JSON parsing.
-5. **`detectPKG.py` runs**, detects your package manager, and prints the list of packages from `packages.json` that should be installed. `main.sh` stores this list in a Bash array.
-6. **The script loops over that array.** For each package: if it's already installed, it prints `[ - ]` and skips it. If it's missing, `installPKG.py` prints the correct install command for that one package, and `main.sh` runs it with `eval`.
-
-In short: Python figures out *what* command to run for your specific system, and Bash actually runs it.
-
-## 🚀 Usage
-
-### Option 1 — Full clone (recommended)
+## ⚙️ How It Works
 
 ```
-git clone https://github.com/CAgent47/omniPKG.git
-cd omniPKG/[CAgent_47]omnipkg
-chmod +x main.sh
-./main.sh
+┌──────────────────────┐
+│   omnipkg.sh start   │
+└──────────┬───────────┘
+           │
+           ▼
+   core/createJson.py      → ensures packages.json exists
+           │
+           ▼
+   core/updatePKG.py       → runs system update (apt update && full-upgrade)
+           │
+           ▼
+   installer() → jq        → ensures jq is available (auto-installed if missing)
+           │
+           ▼
+   core/detectPKG.py       → reads packages.json, returns the package list
+           │
+           ▼
+   [ Confirmation prompt ] → y/n before continuing
+           │
+           ▼
+   installer() per package → installs each missing package individually
+           │
+           ▼
+   core/cleanPKG.py        → cleans up after installation
 ```
 
-### Option 2 — Standalone `main.sh`
+---
 
-If you only have `main.sh` on its own (no `core/` folder next to it), just run it anyway:
+## 🚀 Installation & Usage
 
-```
-chmod +x main.sh
-./main.sh
-```
-
-It will detect that `core/` is missing and ask:
-
-```
-[ ERROR ] Missing Python core files: core/createJson.py core/installPKG.py core/updatePKG.py core/detectPKG.py
-[ INFO ] Core Python files are missing!
-
-[ INFO ] The following files are required:
-  - core/createJson.py
-  - core/installPKG.py
-  - core/updatePKG.py
-  - core/detectPKG.py
-
-[ INFO ] You can download them from: https://github.com/CAgent47/omniPKG.git
-Do you want to download them now? (y/n):
+```bash
+git clone https://github.com/CAgent47/OmniPKG.git
+cd OmniPKG
+chmod +x omnipkg.sh
+./omnipkg.sh
 ```
 
-Answer `y` and it clones the repo, copies `core/` into your current folder, and continues automatically.
+That's it. The script will:
+1. Show the banner and detect your system
+2. Make sure `packages.json` exists (creates a default one if it's missing)
+3. Update your system
+4. Show you exactly which packages it's about to install
+5. Ask for confirmation (`y`/`n`)
+6. Install everything, then clean up
 
-You'll need `sudo` access for most package managers, since installing and updating system packages requires root privileges.
+---
 
-## 🖥️ Example Output
-
-A typical run on a fresh Debian/Ubuntu machine looks like this:
-
-```
-[ INFO ] Starting OmniPKG Package Installer v1.5
-[ INFO ] Author: CAgent_47
-==========================================
-[ INFO ] Creating package mappings...
-[ INFO ] Updating package manager...
-[ INFO ] Installing jq...
-[ INFO ] Detecting packages to install...
-==========================================
-[ INFO ] Starting package installation...
-
-[ + ]: Installing python3-full
-[ - ]: curl Already installed on your system
-[ - ]: git Already installed on your system
-[ + ]: Installing ssh
-[ + ]: Installing dos2unix
-[ + ]: Installing ipython3
-[ + ]: Installing libnotify-bin
-[ + ]: Installing unrar
-[ - ]: wget Already installed on your system
-[ + ]: Installing python3-pip
-[ + ]: Installing lolcat
-[ + ]: Installing fortune
-[ + ]: Installing cowsay
-[ + ]: Installing btop
-==========================================
-[ SUCCESS ] Installation completed successfully!
-
-Created By CAgent_47
-GitHub: https://github.com/CAgent47
-LinkedIn: https://linkedin.com/in/mohammad-shaygan-2a96a8387
-X: https://x.com/CAgent_47
-```
-
-`[ INFO ]` lines show in yellow, `[ SUCCESS ]` in green, and `[ ERROR ]` in red in your actual terminal — this is just the plain-text version.
-
-## ⚙️ Configuration
-
-### Changing which packages get installed
-
-Edit `core/packages.json` and change the `Packages` array:
+## 📂 Project Structure
 
 ```
-{
-  "apt": [
-    "curl",
-    "git",
-    "wget"
-    <and your packages>
-  ]
-}
-and more package managers
+OmniPKG/
+├── omnipkg.sh              # main entry point
+├── core/
+│   ├── packages.json       # your customizable package list
+│   ├── createJson.py       # creates packages.json if missing
+│   ├── updatePKG.py        # generates the system-update command
+│   ├── installPKG.py       # generates the correct install command per distro
+│   ├── detectPKG.py        # reads and returns the package list
+│   └── cleanPKG.py         # generates the post-install cleanup command
+└── README.md
 ```
 
-### Adding a new package manager
+---
 
-Edit `core/distroPKG.json`. Each entry needs an `install` and `update` command:
+## 🛠️ Requirements
 
-```
-{
-  "apt": {
-    "update": "sudo apt update && sudo apt full-upgrade -y",
-    "install": "sudo apt install -y"
-  }
-}
-```
-
-## 🗺️ Supported Package Managers
-
-| Manager | Distro / Platform |
+| Requirement | Notes |
 |---|---|
-| `apt` | Debian, Ubuntu, Mint |
-| `dnf` | Fedora, RHEL 8+ |
-| `yum` | CentOS, older RHEL |
-| `pacman` | Arch, Manjaro, EndeavourOS |
-| `zypper` | openSUSE |
-| `apk` | Alpine |
-| `xbps-install` | Void Linux |
-| `eopkg` | Solus |
-| `emerge` | Gentoo |
-| `urpmi` | Mageia |
-| `swupd` | Clear Linux |
-| `tdnf` | Photon OS |
-| `nix` / `guix` | NixOS / Guix System |
-| `pkg` / `pkgin` | FreeBSD, NetBSD |
-| `opkg` | Embedded / OpenWrt |
-| `flatpak` / `snap` | Cross-distro sandboxed apps |
-| `brew` | Linuxbrew / macOS |
-| `winget` / `choco` / `scoop` | Windows |
+| Bash | any modern version |
+| Python 3 | used by the `core/` scripts |
+| `jq` | auto-installed by the script if missing |
+| A Debian-based distro | Debian, Ubuntu, Pop!_OS, and derivatives |
 
-## 🧩 Requirements
+---
 
-- Bash
-- Python 3
-- `git` (only needed if using standalone mode to self-clone `core/`)
-- `sudo` privileges (for most package managers)
+## 📝 Customizing Packages
 
-## ❓ FAQ / Troubleshooting
+Open `core/packages.json` and edit the package list to whatever you need:
 
-**Why does it ask for my password?**
-Installing or updating system packages requires root access, so most commands are run with `sudo`.
+```json
+{
+    "Packages": [
+        "curl",
+        "git",
+        "btop"
+    ]
+}
+```
 
-**What happens if I say "n" when it asks to download core files?**
-The script exits safely without making any changes to your system.
+Save it, run `./omnipkg.sh` again — done.
 
-**My package manager isn't in the list, what do I do?**
-Open an issue or a PR on GitHub with the correct `install`/`update` syntax for it, and it can be added to `distroPKG.json`.
-
-**Is it safe to run `main.sh` multiple times?**
-Yes — it checks whether each package is already installed before trying to install it, so running it again just skips what you already have.
-
-**What does `set -euo pipefail` and the `trap` at the end do?**
-They make the script stop immediately and print a clean error message if any command fails, instead of silently continuing with a half-broken setup.
+---
 
 ## 🤝 Contributing
 
-Pull requests are welcome! If your package manager isn't listed, feel free to open an issue or PR with its `install`/`update` syntax.
+Issues and pull requests are welcome. If a package fails to install on your distro, check `core/packages.json` and make sure the package name matches your distro's package manager naming convention.
 
-## 📄 License
+---
 
-MIT License
+## 📜 License
 
-## 👤 Author
+Distributed under the **MIT License**. See `LICENSE` for details.
 
-**CAgent_47** (Mohammad Shaygan)
+---
 
-- GitHub: [github.com/CAgent47](https://github.com/CAgent47)
-- LinkedIn: [linkedin.com/in/mohammad-shaygan-2a96a8387](https://linkedin.com/in/mohammad-shaygan-2a96a8387)
-- X: [x.com/CAgent_47](https://x.com/CAgent_47)
+<div align="center">
 
-![banner](banner.png)
+**Author:** CAgent_47
+![GitHub](https://github.com/CAgent47) · ![LinkedIn](https://www.linkedin.com/in/mohammad-shaygan-2a96a8387) · ![X](https://x.com/CAgent_47)
+
+</div>
