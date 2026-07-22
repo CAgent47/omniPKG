@@ -1,162 +1,104 @@
 #!/bin/bash
 set -euo pipefail
 
-# Colors for better output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+clear
 
-# Function to print colored messages
-print_error() {
-    echo -e "${RED}[ ERROR ]${NC} $1"
-}
-
-print_success() {
-    echo -e "${GREEN}[ SUCCESS ]${NC} $1"
-}
-
-print_info() {
-    echo -e "${YELLOW}[ INFO ]${NC} $1"
-}
-
-# Function to check if Python files exist
-check_python_files() {
-    local missing_files=()
-    
-    for file in "core/createJson.py" "core/installPKG.py" "core/updatePKG.py" "core/detectPKG.py"; do
-        if [[ ! -f "$file" ]]; then
-            missing_files+=("$file")
-        fi
-    done
-
-    if [[ ${#missing_files[@]} -gt 0 ]]; then
-        print_error "Missing Python core files: ${missing_files[*]}"
-        return 1
-    fi
-
-    return 0
-}
-
-# Function to clone the repository
-clone_repository() {
-    print_info "Cloning omniPKG repository..."
-
-    # Check if git is installed
-    if ! command -v git &> /dev/null; then
-        print_error "Git is not installed. Please install git first."
-        exit 1
-    fi
-
-    # Backup existing files if any
-    if [[ -d "core" ]]; then
-        print_info "Backing up existing core directory..."
-        mv core core_backup_$(date +%s)
-    fi
-
-    # Clone the repository
-    if git clone https://github.com/CAgent47/omniPKG.git temp_repo; then
-        # Copy core files from cloned repo
-        if [[ -d "temp_repo/core" ]]; then
-            cp -r temp_repo/core .
-            cp -r temp_repo/packages.json . 2>/dev/null || true
-            cp -r temp_repo/distroPKG.json . 2>/dev/null || true
-            print_success "Core files downloaded successfully!"
-            rm -rf temp_repo
-            return 0
+installer() {
+    local pkg="$1"
+    if ! command -v "$pkg" &> /dev/null; then
+        echo -e "${BGreen}[ Install ]${RESET} Installing $pkg ..."
+        SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+        install_cmd=$(python3 "$SCRIPT_DIR/core/installPKG.py" "$pkg")
+        
+        if eval "$install_cmd"; then
+            echo -e "${BGreen}[ Successfuly ]${RESET} $pkg installed successfully!"
         else
-            print_error "Failed to find core directory in cloned repository"
-            rm -rf temp_repo
-            return 1
+            echo -e "${BRed}[ ERROR ]${RESET} Failed to install $pkg please visit packages.json and find your Package manager for edit packages name"
         fi
     else
-        print_error "Failed to clone repository. Please check your internet connection."
-        return 1
+        echo -e "${Yellow}[ WARNING ]${RESET} $pkg is already installed in your system."
     fi
 }
+# Colors
+# shellcheck disable=SC2034
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+CYAN=$(tput setaf 6)
+# shellcheck disable=SC2034
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+# shellcheck disable=SC2034
+BPurple='\033[1;35m'
+# shellcheck disable=SC2034
+BGreen='\033[1;32m'
+# shellcheck disable=SC2034
+Yellow='\033[0;33m'
+BRed='\033[1;31m'
+echo "${CYAN}============================================"
+echo "  ██████╗ ███╗   ███╗███╗   ██╗██╗██████╗ ██╗  ██╗ ██████╗ "
+echo "  ██╔═══██╗████╗ ████║████╗  ██║██║██╔══██╗██║ ██╔╝██╔════╝ "
+echo "  ██║   ██║██╔████╔██║██╔██╗ ██║██║██████╔╝█████╔╝ ██║  ███╗"
+echo "  ██║   ██║██║╚██╔╝██║██║╚██╗██║██║██╔═══╝ ██╔═██╗ ██║   ██║"
+echo "  ╚██████╔╝██║ ╚═╝ ██║██║ ╚████║██║██║     ██║  ██╗╚██████╔╝"
+echo "   ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝  ╚═╝ ╚═════╝ "
+echo "============================================"
+echo "${GREEN}          Universal Package Bootstrapper     ${RESET}"
+echo "${YELLOW}                  v1.7                       ${RESET}"
+echo "============================================"
+echo "  ${BLUE}🐧  Author   :${RESET} CAgent_47"
+echo "  ${BLUE}📦  License  :${RESET} MIT                          "
+echo "  ${BLUE}🌐  GitHub   :${RESET} github.com/CAgent47"
+echo "============================================"
+echo ""
+echo "  ${GREEN}[ INFO ]${RESET} Starting OmniPKG Package Installer..."
+echo "  ${GREEN}[ INFO ]${RESET} Detecting your system and package manager..."
+echo "${RESET}"
 
-# Main execution
-main() {
-    print_info "Starting OmniPKG Package Installer v1.5"
-    print_info "Author: CAgent_47"
-    echo "=========================================="
+sleep 4
 
-    # Check for Python core files
-    if ! check_python_files; then
-        print_info "Core Python files are missing!"
-        echo ""
-        print_info "The following files are required:"
-        echo "  - core/createJson.py"
-        echo "  - core/installPKG.py"
-        echo "  - core/updatePKG.py"
-        echo "  - core/detectPKG.py"
-        echo ""
-        print_info "You can download them from: https://github.com/CAgent47/omniPKG.git"
 
-        read -p "Do you want to download them now? (y/n): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            if clone_repository; then
-                print_success "Core files downloaded. Continuing..."
-            else
-                print_error "Failed to download core files. Exiting."
-                exit 1
-            fi
-        else
-            print_error "Cannot continue without core files. Exiting."
-            exit 1
-        fi
-    fi
+echo "============================================"
+echo "${GREEN}[ INFO ]${RESET} checking json files...."
+python3 core/createJson.py
 
-    # Check if Python is installed
-    if ! command -v python3 &> /dev/null; then
-        print_error "Python 3 is not installed. Please install Python 3 first."
-        exit 1
-    fi
+echo "============================================"
+echo -e "${BPurple}[ UPDATE ]${RESET} Updating your system....."
+# shellcheck disable=SC2046
+eval $(python3 core/updatePKG.py)
 
-    # Execute the main installation process
-    print_info "Creating package mappings..."
-    python3 core/createJson.py
+echo "============================================"
+echo -e "${BGreen}[ Install ]${RESET} Checking Jq...."
+installer jq
+# shellcheck disable=SC2034
+# shellcheck disable=SC2091
 
-    print_info "Updating package manager..."
-    eval $(python3 core/updatePKG.py)
+echo "============================================"
+echo -e "${BGreen}[ Install ]${RESET} Detecting Packages"
 
-    # Check and install jq if needed
-    if ! command -v jq &> /dev/null; then 
-        print_info "Installing jq..."
-        eval $(python3 core/installPKG.py) jq
-    fi
 
-    print_info "Detecting packages to install..."
-    mapfile -t Packages < <($(python3 core/detectPKG.py))
+# shellcheck disable=SC2091
+mapfile -t Packages < <(python3 core/detectPKG.py)
+echo " "
+echo -e "${Yellow}[ WARNING ]${RESET} The following packages are being installed..."
 
-    # Install packages
-    echo "=========================================="
-    print_info "Starting package installation..."
-    echo ""
+for showPKG in "${Packages[@]}"; do
+    echo "$showPKG"
+done
 
-    for PKG in "${Packages[@]}"; do
-        if ! command -v "$PKG" &> /dev/null; then
-            echo "[ + ]: Installing $PKG" 
-            eval python3 core/installPKG.py "$PKG"
-        else
-            echo "[ - ]: $PKG Already installed on your system"
-        fi
+echo " "
+echo "Are you sure these packages are installed? (y / n)"
+# shellcheck disable=SC2162
+# shellcheck disable=SC2034
+
+read InstallREQ
+
+if [[ "$InstallREQ" == "y" ]] || [[ "$InstallREQ" == "Y" ]]; then
+    echo -e "${BGreen}[ OK ]${RESET} Installing Packages Please Wait a minutes..."
+    for package in "${Packages[@]}"; do
+        installer "$package"
     done
-
-    echo "=========================================="
-    print_success "Installation completed successfully!"
-    echo ""
-    echo "Created By CAgent_47"
-    echo "GitHub: https://github.com/CAgent47"
-    echo "LinkedIn: https://linkedin.com/in/mohammad-shaygan-2a96a8387"
-    echo "X: https://x.com/CAgent_47"
-}
-
-# Trap errors
-trap 'print_error "An error occurred. Exiting..." && exit 1' ERR
-
-# Run main function
-main
-
-exit 0
+else
+    echo "OK Edit your Packages In The packages.json In core folder"
+fi
