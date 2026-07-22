@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐧 OmniPKG — Universal Package Bootstrapper
+# 🐧 OmniPKG (V1.7) — Universal Package Bootstrapper
 
 **One script. Any Debian-based distro. Zero manual package hunting.**
 
