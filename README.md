@@ -14,6 +14,12 @@
 
 ---
 
+# ⚠️Warning⚠️
+
+**‼️To run the script, you need to have Python 3 installed‼️**
+
+---
+
 ## 📖 About
 
 **OmniPKG** is a smart, cross-platform package bootstrapper. Point it at any system — Debian, Fedora, Arch, macOS, BSD, even Windows — and it detects the right package manager, updates your system, installs your package list, and cleans up after itself. No more remembering whether it's `apt`, `dnf`, `pacman`, `brew`, or `winget`.
