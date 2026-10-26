@@ -14,9 +14,16 @@
 
 ---
 
-# ⚠️Warning⚠️
+# ⚠️ Prerequisites
 
-**‼️To run the script, you need to have Python 3 installed‼️**
+Before running OmniPKG, make sure the following requirements are met:
+
+- 🐍 Python 3 — Required for package manager detection and command generation.
+- 🐚 Bash — Required to execute the main script.
+- 📦 A supported package manager — Must be installed and available on your system.
+- 🔑 Root access or "sudo" privileges — Required for privileged package management operations.
+
+Note: OmniPKG does not install Python automatically. Make sure Python 3 is installed before running the script.
 
 ---
 
