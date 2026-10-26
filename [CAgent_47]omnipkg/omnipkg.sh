@@ -2,6 +2,11 @@
 
 clear
 
+if ! command -v python3 &> /dev/null; then
+    echo "python3 Not installed"
+    exit 1
+fi
+
 # Colors
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
