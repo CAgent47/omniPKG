@@ -16,7 +16,7 @@
 
 # ⚠️ Prerequisites
 
-Before running omniPKG, make sure the following requirements are met:
+**Before running omniPKG, make sure the following requirements are met:**
 
 - 🐍 **Python 3 — Required for package manager detection and command generation.**
 - 🐚 **Bash — Required to execute the main script.**
@@ -29,7 +29,7 @@ Before running omniPKG, make sure the following requirements are met:
 
 ## 📖 About
 
-**OmniPKG** is a smart, cross-platform package bootstrapper. Point it at any system — Debian, Fedora, Arch, macOS, BSD, even Windows — and it detects the right package manager, updates your system, installs your package list, and cleans up after itself. No more remembering whether it's `apt`, `dnf`, `pacman`, `brew`, or `winget`.
+**omniPKG** is a smart, cross-platform package bootstrapper. Point it at any system — Debian, Fedora, Arch, macOS, BSD, even Windows — and it detects the right package manager, updates your system, installs your package list, and cleans up after itself. No more remembering whether it's `apt`, `dnf`, `pacman`, `brew`, or `winget`.
 
 Built for people who set up a new machine often and are tired of looking up install commands every single time.
 
