@@ -163,4 +163,22 @@ Distributed under the **MIT License**. See `LICENSE` for details.
 
 </div>
 
+---
+
+[#CAgent_47](https://github.com/topics/CAgent47)
+[#Linux](https://github.com/topics/linux)
+[#Package_Manager](https://github.com/topics/package_manager)
+[#Package_management](https://github.com/topics/Package_management)
+[#Automation](https://github.com/topics/automation)
+[#Bash](https://github.com/topics/bash)
+[#Python](https://github.com/topics/python)
+[#Shell_Script](https://github.com/topics/shell_script)
+[#Linux_Tools](https://github.com/topics/linux_tools)
+[#CLI](https://github.com/topics/cli)
+[#command_line](https://github.com/topics/command_line)
+[#cross_distro](https://github.com/topics/cross_distro)
+[#open_source](https://github.com/topics/open_source)
+
+---
+
 ![banner](Images/banner.png)
