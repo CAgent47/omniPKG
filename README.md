@@ -127,18 +127,29 @@ Beyond general package bootstrapping, OmniPKG ships a self-contained Docker setu
 Open `core/distroPKG.json` and edit the `install` line for your package manager. Each entry has separate `sudo` and `root` blocks so the correct syntax is picked automatically:
 
 ```json
-"apt": {
-    "sudo": {
-        "update": "sudo apt update && sudo apt full-upgrade -y",
-        "install": "sudo apt install -y curl git btop",
-        "clean": "sudo apt autoremove -y && sudo apt clean"
+    "apt": {
+        "sudo": {
+            "update": "sudo apt update && sudo apt full-upgrade -y",
+            "install": "sudo apt install -y vim openssh-client dos2unix ipython3 libnotify-bin wget python3-pip lolcat fortune cowsay btop",
+            "clean": "sudo apt autoremove -y && sudo apt clean"
+        },
+        "root": {
+            "update": "apt update && apt full-upgrade -y",
+            "install": "apt install -y vim openssh-client dos2unix ipython3 libnotify-bin wget python3-pip lolcat fortune cowsay btop",
+            "clean": "apt autoremove -y && apt clean"
+        }
     },
-    "root": {
-        "update": "apt update && apt full-upgrade -y",
-        "install": "apt install -y curl git btop",
-        "clean": "apt autoremove -y && apt clean"
-    }
-}
+    "dnf": {
+        "sudo": {
+            "update": "sudo dnf check-update && sudo dnf upgrade -y",
+            "install": "sudo dnf install -y openssh-clients dos2unix ipython libnotify unrar wget python3-pip lolcat fortune cowsay btop",
+            "clean": "sudo dnf autoremove -y && sudo dnf clean all"
+        },
+        "root": {
+            "update": "dnf check-update && dnf upgrade -y",
+            "install": "dnf install -y openssh-clients dos2unix ipython libnotify unrar wget python3-pip lolcat fortune cowsay btop",
+            "clean": "dnf autoremove -y && dnf clean all"
+        }
 ```
 
 Add or remove package names, save, and run `./omnipkg.sh` again.
