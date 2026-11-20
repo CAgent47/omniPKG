@@ -2,6 +2,10 @@
 
 clear
 
+chmod +x core/prereqisite.sh
+./core/prereqisite.sh
+sleep 2
+
 if ! command -v python3 &> /dev/null; then
     echo "python3 Not installed"
     exit 1
