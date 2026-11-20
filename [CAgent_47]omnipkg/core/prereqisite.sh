@@ -24,4 +24,5 @@ if command -v jq &> /dev/null; then
     done
 else
     echo "[ ERROR ]: Please Install <jq> In your system and try again!"
+    exit 1
 fi
