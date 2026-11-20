@@ -1,0 +1,118 @@
+{
+    "apt": {
+        "sudo": { "prereqisite": "sudo apt install -y git python3 curl" },
+        "root": { "prereqisite": "apt install -y git python3 curl" }
+    },
+    "dnf": {
+        "sudo": { "prereqisite": "sudo dnf install -y git curl python3" },
+        "root": { "prereqisite": "dnf install -y git curl python3" }
+    },
+    "pacman": {
+        "sudo": { "prereqisite": "sudo pacman -S --noconfirm git curl python" },
+        "root": { "prereqisite": "pacman -S --noconfirm git curl python" }
+    },
+    "yum": {
+        "sudo": { "prereqisite": "sudo yum install -y git curl python3" },
+        "root": { "prereqisite": "yum install -y git curl python3" }
+    },
+    "zypper": {
+        "sudo": { "prereqisite": "sudo zypper install -y git curl python3" },
+        "root": { "prereqisite": "zypper install -y git curl python3" }
+    },
+    "apk": {
+        "sudo": { "prereqisite": "sudo apk add git curl python3" },
+        "root": { "prereqisite": "apk add git curl python3" }
+    },
+    "xbps-install": {
+        "sudo": { "prereqisite": "sudo xbps-install -y git curl python3" },
+        "root": { "prereqisite": "xbps-install -y git curl python3" }
+    },
+    "eopkg": {
+        "sudo": { "prereqisite": "sudo eopkg install -y git curl python3" },
+        "root": { "prereqisite": "eopkg install -y git curl python3" }
+    },
+    "emerge": {
+        "sudo": { "prereqisite": "sudo emerge dev-vcs/git net-misc/curl dev-lang/python" },
+        "root": { "prereqisite": "emerge dev-vcs/git net-misc/curl dev-lang/python" }
+    },
+    "nix": {
+        "sudo": { "prereqisite": "nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.python3" },
+        "root": { "prereqisite": "nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.python3" }
+    },
+    "guix": {
+        "sudo": { "prereqisite": "guix install git curl python" },
+        "root": { "prereqisite": "guix install git curl python" }
+    },
+    "pkg": {
+        "sudo": { "prereqisite": "sudo pkg install -y git curl python3" },
+        "root": { "prereqisite": "pkg install -y git curl python3" }
+    },
+    "brew": {
+        "sudo": { "prereqisite": "brew install git curl python3" },
+        "root": { "prereqisite": "brew install git curl python3" }
+    },
+    "snap": {
+        "sudo": { "prereqisite": "sudo snap install git --classic && sudo snap install curl" },
+        "root": { "prereqisite": "snap install git --classic && snap install curl" }
+    },
+    "winget": {
+        "sudo": { "prereqisite": "winget install -e --id Git.Git && winget install -e --id cURL.cURL && winget install -e --id Python.Python.3.12" },
+        "root": { "prereqisite": "winget install -e --id Git.Git && winget install -e --id cURL.cURL && winget install -e --id Python.Python.3.12" }
+    },
+    "choco": {
+        "sudo": { "prereqisite": "choco install -y git curl python3" },
+        "root": { "prereqisite": "choco install -y git curl python3" }
+    },
+    "scoop": {
+        "sudo": { "prereqisite": "scoop install git curl python" },
+        "root": { "prereqisite": "scoop install git curl python" }
+    },
+    "pkgin": {
+        "sudo": { "prereqisite": "sudo pkgin -y install git curl python312" },
+        "root": { "prereqisite": "pkgin -y install git curl python312" }
+    },
+    "opkg": {
+        "sudo": { "prereqisite": "opkg install git curl python3" },
+        "root": { "prereqisite": "opkg install git curl python3" }
+    },
+    "swupd": {
+        "sudo": { "prereqisite": "sudo swupd bundle-add git curl python3-basic" },
+        "root": { "prereqisite": "swupd bundle-add git curl python3-basic" }
+    },
+    "urpmi": {
+        "sudo": { "prereqisite": "sudo urpmi --auto git curl python3" },
+        "root": { "prereqisite": "urpmi --auto git curl python3" }
+    },
+    "tdnf": {
+        "sudo": { "prereqisite": "sudo tdnf install -y git curl python3" },
+        "root": { "prereqisite": "tdnf install -y git curl python3" }
+    },
+    "port": {
+        "sudo": { "prereqisite": "sudo port install git curl python312" },
+        "root": { "prereqisite": "port install git curl python312" }
+    },
+    "yay": {
+        "sudo": { "prereqisite": "yay -S --noconfirm git curl python" },
+        "root": { "prereqisite": "yay -S --noconfirm git curl python" }
+    },
+    "paru": {
+        "sudo": { "prereqisite": "paru -S --noconfirm git curl python" },
+        "root": { "prereqisite": "paru -S --noconfirm git curl python" }
+    },
+    "slackpkg": {
+        "sudo": { "prereqisite": "sudo slackpkg install git curl python3" },
+        "root": { "prereqisite": "slackpkg install git curl python3" }
+    },
+    "pkg_add": {
+        "sudo": { "prereqisite": "sudo pkg_add git curl python3" },
+        "root": { "prereqisite": "pkg_add git curl python3" }
+    },
+    "rpm-ostree": {
+        "sudo": { "prereqisite": "sudo rpm-ostree install git curl python3" },
+        "root": { "prereqisite": "rpm-ostree install git curl python3" }
+    },
+    "prt-get": {
+        "sudo": { "prereqisite": "sudo prt-get depinst git curl python3" },
+        "root": { "prereqisite": "prt-get depinst git curl python3" }
+    }
+}
