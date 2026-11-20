@@ -2,7 +2,7 @@
 
 if command -v jq &> /dev/null; then
 
-    JSON_FILE="prereqisite.json"
+    JSON_FILE="core/prereqisite.json"
 
     # root OR user
     if [ "$(id -u)" -eq 0 ]; then
