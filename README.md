@@ -16,9 +16,7 @@
 
 # ⚠️ Prerequisites
 
-**Before running omniPKG, make sure the following requirements are met:**
-
-- 🐍 **Python 3 — Required for package manager detection and command generation.**
+**Before running omniPKG, make sure the following requirements are met:*
 - 🐚 **Bash — Required to execute the main script.**
 - 📦 **A supported package manager — Must be installed and available on your system.**
 - 🔑 **Root access or "sudo" privileges — Required for privileged package management operations.**
@@ -35,7 +33,7 @@ Built for people who set up a new machine often and are tired of looking up inst
 
 ---
 
-## ✨ What's New in v2.5.1
+## ✨ What's New in v2.5.5
 
 - 👤 **Root/non-root aware command selection** — every package manager entry in `distroPKG.json` now carries two variants, `sudo` and `root`. A new `omnimodule.userMod()` helper checks `os.geteuid()` and picks the right one automatically, so the correct syntax is used whether you're running as a regular user or already as root.
 - 🗂️ **Config renamed & restructured** — the central config file is now `core/distroPKG.json`, read through the shared `omnimodule` (`loadJson`, `loopInDICT`, `userMod`) instead of separate ad-hoc scripts.
@@ -45,6 +43,7 @@ Built for people who set up a new machine often and are tired of looking up inst
 - ⏳ **Live spinner & progress feedback**, unchanged from v2.0 — animated spinner and progress dots so you always know something's happening.
 - 🎨 **Refined terminal UI** — boxed banner, color-coded sections, cleaner status messages.
 - 🧹 **Automatic post-install cleanup** — orphaned packages and caches removed automatically per package manager.
+- 📦 **Automatic Install Prereqisites (git, curl, python3)**
 
 > UI polish and this document were put together with AI assistance. Core architecture, the package-manager logic, and the Docker automation modules were designed and implemented by the author.
 
@@ -59,6 +58,8 @@ Built for people who set up a new machine often and are tired of looking up inst
 │   ├── distroPKG.json              # Central config: pkg manager commands (sudo + root variants)
 │   ├── omnimodule.py                # Shared helpers: loadJson(), loopInDICT(), userMod()
 │   ├── updatePKG.py                 # Detects pkg manager & returns update command
+│   ├── prereqisite.json             # pkg manager commands ( sudo or root ) for installs prereqisite
+│   ├── prereqisite.sh               # install prereqisite execute the right command
 │   ├── installPKG.py                # Returns install command for detected pkg manager
 │   └── cleanPKG.py                  # Returns cleanup command for detected pkg manager
 ├── dockerfile/                     # Docker automation suite
